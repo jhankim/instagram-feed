@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+
+		  $(document).ready(function() {
+
+		  	// Set your desired hashtag here
+		  	var hashtag = 'olaween';
+
+		 	function getInsta(tag, prepend){
+			    $.ajax({
+	                url: "./index_olaween.php?tag=" + tag,
+	                cache: false,
+	                dataType: "json",
+	                type: 'GET',
+	                timeout: 3000,
+	                success: function(data) {
+	                  console.log(data);
+	                  var images = data.data;
+	                  $.each(images, function(key,value){
+
+	                  	var id = images[key].id;
+
+	                  	if ( !$('li#'+id).length ) {
+
+		                  	var html = '<li id="'+images[key].id+'" style="background:url(' + images[key].images.low_resolution.url + '); background-size:cover;"><div class="metadata">';
+		                  		html += '<img src="'+images[key].user.profile_picture+'" /><span class="username">@'+images[key].user.username+'</span>';
+		                  		html += '</div></li>';
+
+		                  	if (prepend) {
+		                  		$('#main li:first-child').after(html);
+		                  	} else {
+		                  		$('#main').append(html);
+		                  	}
+
+	                  	}
+	                  	
+	                  });
+	                },
+	                error: function(data){
+	                	console.log(data);
+	                }
+			    });
+		 	}
+
+		 	getInsta(hashtag,false);
+
+		 	setInterval(function(){
+		 		getInsta(hashtag,true);
+		 	}, 10000); // Set refresh interval here (in miliseconds)
+		 	
+		});
+
+	</script>
+	<style>
+
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed, 
+	figure, figcaption, footer, header, hgroup, 
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline;
+	}
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure, 
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	body {
+		line-height: 1;
+	}
+	ol, ul {
+		list-style: none;
+	}
+	blockquote, q {
+		quotes: none;
+	}
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+	}
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	body {
+		margin: 0;
+		padding: 0;
+		background: url('./img/bg.png');
+		font-family: 'Lato', sans-serif;
+		background: #000;
+	}
+
+	ul {
+		color: #fff;
+		list-style: none;
+	}
+
+	ul li {
+		position: relative;
+		display: inline-block;
+		float: left;
+		width: 350px;
+		height: 350px;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		background: #ccc;
+		margin: 5px;
+	}
+
+	ul li:first-child {
+		text-align: center;
+	}
+
+	ul li:first-child span {
+		display: block;
+		margin-top: 130px;
+		background: rgba(0,0,0,0.5);
+		padding: 11px;
+	}
+
+	ul li .metadata {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 50px;
+		padding: 5px;
+		-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+		-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+		box-sizing: border-box;         /* Opera/IE 8+ */
+		background: rgba(0,0,0,.3);
+	}
+
+	.metadata img {
+		height: 100%;
+		background: rgba(0,0,0,0.3);
+		float: left;
+		-webkit-border-radius: 100px;
+		border-radius: 100px;
+	}
+	.metadata .username {
+		line-height: 40px;
+		margin-left: 10px;
+	}
+
+	strong {
+		font-size: 3.5em;
+	}
+
+	div#fixed {
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		background: rgba(0,0,0,0.3);
+		padding: 30px;
+		color: #ccc;
+		font-size: 1.5em;
+	}
+
+	</style>
+</head>
+<body>
+
+	<ul id="main">
+		<li style="background:url(./img/first.jpg);background-size:contain">
+			<span>We put UGC on stuff... Hashtag: <strong>#yourhashtag</strong>!</span>
+		</li>
+	</ul>
+
+	<div id="fixed">We put UGC on stuff... Express yo self using hashtag: <strong>#yourhashtag</strong></div>
+
+</body>
+</html>
