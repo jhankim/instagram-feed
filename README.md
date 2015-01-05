@@ -7,6 +7,7 @@ A simple Instagram feed app.
 You will need a HTTP server with PHP in order for the script to work.
 
 Steps:
+
 1. Set your Instagram API key in line 8 of the `ping-instagram.php`
   ```
   $clientId = "REPLACE_THIS_WITH_YOUR_INSTAGRAM_API_KEY";		// ==== Instagram Client ID (need to register with Instagram to get it)
