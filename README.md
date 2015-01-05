@@ -4,7 +4,10 @@ A simple Instagram feed app.
 
 # How do I use it?
 
-You will need a HTTP server with PHP in order for the script to work.
+You will need
+
+* HTTP server with PHP
+* Instagram API key (get one at http://instagram.com/developer/)
 
 Steps:
 
